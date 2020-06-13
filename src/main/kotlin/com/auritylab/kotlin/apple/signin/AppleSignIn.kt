@@ -10,7 +10,7 @@ import com.auritylab.kotlin.apple.signin.api.ApplePublicKeyResolver
  * the claims of the identity token.
  */
 class AppleSignIn(
-    private val developerClientId: String,
+    private val clientId: String,
     publicKeyResolver: ApplePublicKeyResolver? = null,
     identityTokenParser: AppleIdentityTokenParser? = null,
     identityTokenVerifier: AppleIdentityTokenVerifier? = null
@@ -35,7 +35,7 @@ class AppleSignIn(
         val isValid = internalIdentityTokenVerifier.isValid(
             identityToken,
             internalPublicKeyResolver.getPublicKey(),
-            developerClientId
+            clientId
         )
 
         // If the identity token is invalid, we can just return null here.

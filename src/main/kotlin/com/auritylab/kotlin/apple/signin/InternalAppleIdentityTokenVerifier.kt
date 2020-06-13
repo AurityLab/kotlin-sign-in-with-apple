@@ -14,17 +14,17 @@ import java.security.interfaces.RSAPublicKey
  */
 internal class InternalAppleIdentityTokenVerifier : AppleIdentityTokenVerifier {
     /**
-     * Will check if the given [identityToken] is valid for the given [publicKey] and [developerClientId].
+     * Will check if the given [identityToken] is valid for the given [publicKey] and [clientId].
      * This catches all underlying exceptions by the JWT library and simply return false on failure.
      *
      * @param identityToken The identity token to validate against.
      * @param publicKey The public key provided by the Apple servers.
-     * @param developerClientId The client ID of the developer.
+     * @param clientId The client ID of the developer.
      * @return If the given [identityToken] is valid or not.
      */
-    override fun isValid(identityToken: String, publicKey: RSAPublicKey, developerClientId: String): Boolean {
+    override fun isValid(identityToken: String, publicKey: RSAPublicKey, clientId: String): Boolean {
         // Build the the verifier based on the public key and the developer client id.
-        val verifier = getJWTVerifier(publicKey, developerClientId)
+        val verifier = getJWTVerifier(publicKey, clientId)
 
         return try {
             // Try to validate the identity token. This always just throw an exception of the verification fails.
@@ -40,13 +40,13 @@ internal class InternalAppleIdentityTokenVerifier : AppleIdentityTokenVerifier {
     }
 
     /**
-     * Will build a [JWTVerifier] based on the given [publicKey] and the given [developerClientId].
+     * Will build a [JWTVerifier] based on the given [publicKey] and the given [clientId].
      * This will validate the signature, issuer and audience of token.
      */
-    private fun getJWTVerifier(publicKey: RSAPublicKey, developerClientId: String): JWTVerifier {
+    private fun getJWTVerifier(publicKey: RSAPublicKey, clientId: String): JWTVerifier {
         return JWT.require(Algorithm.RSA256(publicKey, null))
                 .withIssuer("https://appleid.apple.com")
-                .withAudience(developerClientId)
+                .withAudience(clientId)
                 .build()
     }
 }
