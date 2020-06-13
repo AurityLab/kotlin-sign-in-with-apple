@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 
 internal class InternalAppleIdentityTokenVerifierTest {
     @Test
-    fun `should verify token correctly` () {
+    fun `should verify token correctly`() {
         val testKey = TestUtils.buildTestKey()
         val testJWT = TestUtils.buildTestJWT(testKey)
 
@@ -17,7 +17,7 @@ internal class InternalAppleIdentityTokenVerifierTest {
     }
 
     @Test
-    fun `should throw exception on invalid token correctly` () {
+    fun `should throw exception on invalid token correctly`() {
         val testKey = TestUtils.buildTestKey()
         val testJWT = TestUtils.buildTestJWT(testKey)
 

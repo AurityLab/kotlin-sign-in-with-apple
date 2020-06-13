@@ -34,7 +34,7 @@ internal class AppleSignInTest {
     }
 
     @Test
-    fun `should return null-reference on invalid token correctly` () {
+    fun `should return null-reference on invalid token correctly`() {
         val testKey = TestUtils.buildTestKey()
         val testKeyResolver = TestUtils.buildMockedApplePublicKeyResolver(testKey)
 

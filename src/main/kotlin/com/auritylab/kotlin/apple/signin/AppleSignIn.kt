@@ -11,10 +11,10 @@ import java.security.interfaces.RSAPublicKey
  * the claims of the identity token.
  */
 class AppleSignIn(
-        private val developerClientId: String,
-        publicKeyResolver: ApplePublicKeyResolver? = null,
-        identityTokenParser: AppleIdentityTokenParser? = null,
-        identityTokenVerifier: AppleIdentityTokenVerifier? = null
+    private val developerClientId: String,
+    publicKeyResolver: ApplePublicKeyResolver? = null,
+    identityTokenParser: AppleIdentityTokenParser? = null,
+    identityTokenVerifier: AppleIdentityTokenVerifier? = null
 ) {
     private val internalPublicKeyResolver = publicKeyResolver ?: InternalApplePublicKeyResolver()
     private val internalIdentityTokenParser = identityTokenParser ?: InternalAppleIdentityTokenParser()
@@ -47,4 +47,3 @@ class AppleSignIn(
         return internalIdentityTokenParser.parseIdentityToken(identityToken)
     }
 }
-

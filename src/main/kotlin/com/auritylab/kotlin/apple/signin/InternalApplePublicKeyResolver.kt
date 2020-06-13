@@ -2,9 +2,6 @@ package com.auritylab.kotlin.apple.signin
 
 import com.auritylab.kotlin.apple.signin.api.ApplePublicKeyResolver
 import com.auritylab.kotlin.apple.signin.exception.ApplePublicKeyResolveException
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 import java.math.BigInteger
 import java.net.URI
 import java.net.http.HttpClient
@@ -13,7 +10,10 @@ import java.net.http.HttpResponse
 import java.security.KeyFactory
 import java.security.interfaces.RSAPublicKey
 import java.security.spec.RSAPublicKeySpec
-import java.util.*
+import java.util.Base64
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 
 internal class InternalApplePublicKeyResolver : ApplePublicKeyResolver {
     /**
@@ -53,17 +53,17 @@ internal class InternalApplePublicKeyResolver : ApplePublicKeyResolver {
 
     @Serializable
     internal data class KeysCollectionModel(
-            val keys: List<KeyModel>
+        val keys: List<KeyModel>
     )
 
     @Serializable
     internal data class KeyModel(
-            val kty: String,
-            val kid: String,
-            val use: String,
-            val alg: String,
-            val n: String,
-            val e: String
+        val kty: String,
+        val kid: String,
+        val use: String,
+        val alg: String,
+        val n: String,
+        val e: String
     )
 
     companion object {

@@ -22,7 +22,7 @@ internal class InternalAppleIdentityTokenParserTest {
     }
 
     @Test
-    fun `should throw on invalid token correctly` () {
+    fun `should throw on invalid token correctly`() {
         val parser = InternalAppleIdentityTokenParser()
 
         Assertions.assertThrows(AppleIdentityTokenDecodeException::class.java) {
