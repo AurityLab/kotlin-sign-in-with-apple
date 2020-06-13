@@ -1,6 +1,8 @@
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.3.72"
     kotlin("plugin.serialization") version "1.3.72"
+    id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
+    id("org.jetbrains.dokka") version "0.10.0"
     `java-library`
 }
 
