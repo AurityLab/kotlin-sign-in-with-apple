@@ -7,7 +7,7 @@ import com.auth0.jwt.exceptions.JWTDecodeException
 import java.time.LocalDateTime
 import java.time.ZoneId
 
-class InternalAppleIdentityTokenParser : AppleIdentityTokenParser {
+internal class InternalAppleIdentityTokenParser : AppleIdentityTokenParser {
     override fun parseIdentityToken(identityToken: String): AppleIdentityToken {
         val decodedIdentityToken = try {
             JWT.decode(identityToken)
