@@ -3,7 +3,6 @@ package com.auritylab.kotlin.apple.signin
 import com.auritylab.kotlin.apple.signin.api.AppleIdentityTokenParser
 import com.auritylab.kotlin.apple.signin.api.AppleIdentityTokenVerifier
 import com.auritylab.kotlin.apple.signin.api.ApplePublicKeyResolver
-import java.security.interfaces.RSAPublicKey
 
 /**
  * Provides central facade to interact with the verification process of an identity token provided by Apple Sign In.
@@ -26,11 +25,6 @@ class AppleSignIn(
     constructor(developerClientId: String) : this(developerClientId, null, null)
 
     /**
-     * The public key provided by the apple servers. This will be lazily resolved as it does not change that often.
-     */
-    private val applePublicKey: RSAPublicKey by lazy { internalPublicKeyResolver.getPublicKey() }
-
-    /**
      * Will check if the given [identityToken] is valid. If it's not valid, a null-reference will be returned.
      *
      * @param identityToken The identity token to validate against.
@@ -38,7 +32,11 @@ class AppleSignIn(
      */
     fun validate(identityToken: String): AppleIdentityToken? {
         // Validate the identity token.
-        val isValid = internalIdentityTokenVerifier.isValid(identityToken, applePublicKey, developerClientId)
+        val isValid = internalIdentityTokenVerifier.isValid(
+            identityToken,
+            internalPublicKeyResolver.getPublicKey(),
+            developerClientId
+        )
 
         // If the identity token is invalid, we can just return null here.
         if (!isValid)
