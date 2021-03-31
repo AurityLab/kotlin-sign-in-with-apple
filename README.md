@@ -10,7 +10,7 @@ This library is capable of verifying the identity token from Sign in with Apple.
 #### Gradle
 ```kotlin
 dependencies {
-    implementation("com.auritylab:kotlin-sign-in-with-apple:1.0.0") // See above for the latest version!
+    implementation("com.auritylab:kotlin-sign-in-with-apple:1.0.1") // See above for the latest version!
 }
 ```
 #### Maven
@@ -18,7 +18,7 @@ dependencies {
 <dependency>
     <groupId>com.auritylab</groupId>
     <artifactId>kotlin-sign-in-with-apple</artifactId>
-    <version>1.0.0</version> <!-- See above for the latest versions! -->
+    <version>1.0.1</version> <!-- See above for the latest versions! -->
 </dependency>
 ```
 
