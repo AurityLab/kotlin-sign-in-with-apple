@@ -12,8 +12,8 @@ import java.security.interfaces.RSAPublicKey
 import java.security.spec.RSAPublicKeySpec
 import java.util.Base64
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 
 internal class InternalApplePublicKeyResolver : ApplePublicKeyResolver {
     /**
@@ -31,8 +31,7 @@ internal class InternalApplePublicKeyResolver : ApplePublicKeyResolver {
             val response = client.send(request, HttpResponse.BodyHandlers.ofString())
 
             // Parse the keys into the models.
-            val decoded = Json(JsonConfiguration.Stable).parse(KeysCollectionModel.serializer(), response.body())
-
+            val decoded = Json.decodeFromString<KeysCollectionModel>(response.body())
             // Build the public key based on the public key.
             return buildPublicKey(decoded.keys.first())
         } catch (ex: Exception) {
