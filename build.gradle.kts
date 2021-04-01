@@ -1,5 +1,5 @@
 group = "com.auritylab"
-version = "1.0.1"
+version = "1.0.2"
 
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.4.32"
