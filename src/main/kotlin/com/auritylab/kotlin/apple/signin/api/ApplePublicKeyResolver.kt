@@ -8,11 +8,11 @@ import java.security.interfaces.RSAPublicKey
  */
 interface ApplePublicKeyResolver {
     /**
-     * Will return the public keys as a [RSAPublicKey] instance. If the public key could not be loaded,
-     * an [ApplePublicKeyResolveException] will be thrown.
+     * Will return all available public keys as [RSAPublicKey] instances. Each public key is mapped by its 'kid'.
+     * If the public key could not be loaded, an [ApplePublicKeyResolveException] will be thrown.
      *
      * @throws ApplePublicKeyResolveException If the public key could not be fetched.
-     * @return The fetched public key as [RSAPublicKey].
+     * @return The fetched public keys mapped with their 'kid'.
      */
-    fun getPublicKey(): RSAPublicKey
+    fun getPublicKey(): Map<String, RSAPublicKey>
 }

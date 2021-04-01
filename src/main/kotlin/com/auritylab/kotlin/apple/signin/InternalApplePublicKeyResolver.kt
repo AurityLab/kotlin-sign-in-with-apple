@@ -20,7 +20,7 @@ internal class InternalApplePublicKeyResolver : ApplePublicKeyResolver {
      * Will fetch the current public keys from the Apple servers and build a [RSAPublicKey]. The result of this may
      * not change often, therefore it can be cached for a certain time.
      */
-    override fun getPublicKey(): RSAPublicKey {
+    override fun getPublicKey(): Map<String, RSAPublicKey> {
         val client = HttpClient.newHttpClient()
 
         // Build the request to the keys endpoint.
@@ -32,8 +32,11 @@ internal class InternalApplePublicKeyResolver : ApplePublicKeyResolver {
 
             // Parse the keys into the models.
             val decoded = Json.decodeFromString<KeysCollectionModel>(response.body())
-            // Build the public key based on the public key.
-            return buildPublicKey(decoded.keys.first())
+
+            // Build public key based on the given model and associate with the 'kid'.
+            return decoded.keys.associate {
+                it.kid to buildPublicKey(it)
+            }
         } catch (ex: Exception) {
             throw ApplePublicKeyResolveException(ex)
         }
@@ -47,7 +50,7 @@ internal class InternalApplePublicKeyResolver : ApplePublicKeyResolver {
         val e = BigInteger(1, Base64.getUrlDecoder().decode(key.e))
 
         return KeyFactory.getInstance("RSA")
-                .generatePublic(RSAPublicKeySpec(n, e)) as RSAPublicKey
+            .generatePublic(RSAPublicKeySpec(n, e)) as RSAPublicKey
     }
 
     @Serializable

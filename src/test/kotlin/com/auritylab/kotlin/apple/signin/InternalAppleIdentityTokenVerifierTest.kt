@@ -11,7 +11,7 @@ internal class InternalAppleIdentityTokenVerifierTest {
 
         val verifier = InternalAppleIdentityTokenVerifier()
 
-        val result = verifier.isValid(testJWT, testKey.first, "com.auritylab.test")
+        val result = verifier.isValid(testJWT, mapOf("1" to testKey.first), "com.auritylab.test")
 
         Assertions.assertTrue(result)
     }
@@ -23,7 +23,7 @@ internal class InternalAppleIdentityTokenVerifierTest {
 
         val verifier = InternalAppleIdentityTokenVerifier()
 
-        val result = verifier.isValid(testJWT, testKey.first, "NO")
+        val result = verifier.isValid(testJWT, mapOf("1" to testKey.first), "NO")
 
         Assertions.assertFalse(result)
     }

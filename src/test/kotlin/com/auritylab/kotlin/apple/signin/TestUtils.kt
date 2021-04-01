@@ -23,21 +23,22 @@ object TestUtils {
             LocalDateTime.now().plusDays(30).toEpochSecond(ZoneOffset.UTC)
 
         return JWT.create()
-                .withClaim("iss", "https://appleid.apple.com")
-                .withClaim("aud", "com.auritylab.test")
-                .withClaim("exp", exp)
-                .withClaim("iat", 1592037389)
-                .withClaim("sub", "1234")
-                .withClaim("email", "test@auritylab.com")
-                .withClaim("email_verified", "true")
-                .withClaim("auth_time", 1592037389)
-                .withClaim("nonce_supported", true)
-                .sign(Algorithm.RSA256(key.first, key.second))
+            .withClaim("iss", "https://appleid.apple.com")
+            .withClaim("aud", "com.auritylab.test")
+            .withClaim("exp", exp)
+            .withClaim("iat", 1592037389)
+            .withClaim("sub", "1234")
+            .withClaim("email", "test@auritylab.com")
+            .withClaim("email_verified", "true")
+            .withClaim("auth_time", 1592037389)
+            .withClaim("nonce_supported", true)
+            .withHeader(mapOf("kid" to "1"))
+            .sign(Algorithm.RSA256(key.first, key.second))
     }
 
     fun buildMockedApplePublicKeyResolver(key: Pair<RSAPublicKey, RSAPrivateKey>): ApplePublicKeyResolver {
         return object : ApplePublicKeyResolver {
-            override fun getPublicKey(): RSAPublicKey = key.first
+            override fun getPublicKey(): Map<String, RSAPublicKey> = mapOf("1" to key.first)
         }
     }
 }
